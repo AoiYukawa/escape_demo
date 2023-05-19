@@ -9,7 +9,7 @@ public class CameraController : MonoBehaviour
 
 	private float distance = 5.0f; // カメラとプレイヤーの距離
 	private float height = 10.0f; // カメラの高さ
-	private float smoothSpeed = 50.0f; // カメラの移動スムーズさ
+	private float smoothSpeed = 20.0f; // カメラの移動スムーズさ
 	
 	private Vector3 offset; // カメラとプレイヤーのオフセット値
 
