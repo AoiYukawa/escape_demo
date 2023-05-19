@@ -7,20 +7,20 @@ namespace Unity.Assets.Scripts
 {
 	public class PlayerController : MonoBehaviour
 	{
-		// Unityのインスペクターで操作可能な変数
-		[SerializeField] private float _speed = 1.0f;
-		[SerializeField] private Rigidbody _rb;
+		[SerializeField] private float speed = 1.0f;
+		private Rigidbody rb;
 
-		private void Update()
+		private void Start()
 		{
-			// 方向
-			Vector3 dir = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+			rb = GetComponent<Rigidbody>();
+		}
 
-			// ある方向への力の強さ
-			_rb.velocity = dir * _speed * Time.deltaTime;
-			// dirの方向に移動させる
-			transform.Translate(dir * _speed * Time.deltaTime);
+		private void FixedUpdate()
+		{
+			Vector3 dir = new Vector3(Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical"));
 
+			rb.velocity = dir * speed * Time.deltaTime;
+			//transform.position += dir * speed * Time.deltaTime;
 		}
 	}
 }

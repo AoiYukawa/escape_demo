@@ -9,7 +9,7 @@ public class CameraController : MonoBehaviour
 
 	private float distance = 5.0f; // カメラとプレイヤーの距離
 	private float height = 10.0f; // カメラの高さ
-	private float smoothSpeed = 20.0f; // カメラの移動スムーズさ
+	private float smoothSpeed = 10.0f; // カメラの移動スムーズさ
 	
 	private Vector3 offset; // カメラとプレイヤーのオフセット値
 
@@ -26,7 +26,7 @@ public class CameraController : MonoBehaviour
 		}
 		else
 		{
-			UnityEngine.Debug.LogError("プレイヤーが見つかりませんでした。");
+			UnityEngine.Debug.LogError("The player object could not be found.");
 		}
 
 		 offset = new Vector3(0, height, -distance);
@@ -41,10 +41,6 @@ public class CameraController : MonoBehaviour
 
 		// カメラの現在位置から目標位置までスムーズに移動
 		transform.position = Vector3.Lerp(transform.position, targetPosition, smoothSpeed * Time.deltaTime);
-
-		// カメラの角度を固定する
-		Quaternion fixedRotation = Quaternion.Euler(45f, 0f, 0f); // 角度を設定
-		transform.rotation = fixedRotation;
 
 		// カメラが常にプレイヤーを見下ろすように向きを調整
 		transform.LookAt(target);
