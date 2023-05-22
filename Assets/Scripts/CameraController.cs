@@ -3,46 +3,45 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
 
-public class CameraController : MonoBehaviour
+namespace Unity.Assets.Scripts
 {
-	private Transform target; // 追従する対象のプレイヤーのTransform
+	public class CameraController : MonoBehaviour
+	{
+		GameObject player;
+		private Transform target;
 
-	private float distance = 5.0f; // カメラとプレイヤーの距離
-	private float height = 10.0f; // カメラの高さ
-	private float smoothSpeed = 10.0f; // カメラの移動スムーズさ
-	
-	private Vector3 offset; // カメラとプレイヤーのオフセット値
+		private float distance = 5.0f;
+		private float height = 10.0f;
+		private float smoothSpeed = 10.0f;
 
-	// Start is called before the first frame update
-	void Start()
-    {
-		// プレイヤーのGameObjectを見つける
-		GameObject player = GameObject.Find("Player");
+		private Vector3 offset;
 
-		// プレイヤーのTransformを取得してtargetに設定する
-		if (player != null)
+		void Start()
 		{
-			target = player.transform;
+			player = GameObject.Find("Player");
+
+			if (player != null)
+			{
+				target = player.transform;
+			}
+			else
+			{
+				UnityEngine.Debug.LogError("The player object could not be found.");
+			}
+
+			offset = new Vector3(0, height, -distance);
+
 		}
-		else
+
+		void Update()
 		{
-			UnityEngine.Debug.LogError("The player object could not be found.");
+			if (player == null) return;
+
+			Vector3 targetPosition = target.position + offset;
+
+			transform.position = Vector3.Lerp(transform.position, targetPosition, smoothSpeed * Time.deltaTime);
+
+			transform.LookAt(target);
 		}
-
-		 offset = new Vector3(0, height, -distance);
-
-	}
-
-	// Update is called once per frame
-	void Update()
-    {
-		// カメラの目標位置を計算
-		Vector3 targetPosition = target.position + offset;
-
-		// カメラの現在位置から目標位置までスムーズに移動
-		transform.position = Vector3.Lerp(transform.position, targetPosition, smoothSpeed * Time.deltaTime);
-
-		// カメラが常にプレイヤーを見下ろすように向きを調整
-		transform.LookAt(target);
 	}
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using UnityEngine;
 
-namespace Unity.Assets.Scripts
+namespace Unity.Assets.Scripts.Player
 {
 	public class PlayerController : MonoBehaviour
 	{
