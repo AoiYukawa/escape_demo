@@ -7,13 +7,13 @@ namespace Unity.Assets.Scripts.Enemy
 {
 	public class EnemyCollisionDetector : MonoBehaviour
 	{
-		GameObject player;
-		PlayerHealthManager healthManager;
+		private GameObject _player;
+		private PlayerHealthManager _healthManager;
 
 		void Start()
 		{
-			player = GameObject.Find("Player");
-			healthManager = player.GetComponent<PlayerHealthManager>();
+			_player = GameObject.Find("Player");
+			_healthManager = _player.GetComponent<PlayerHealthManager>();
 		}
 
 		void Update()
@@ -24,7 +24,7 @@ namespace Unity.Assets.Scripts.Enemy
 		private void OnCollisionEnter(Collision collision)
 		{
 			if (collision.gameObject.name == "Player")
-				healthManager.TakeDamage();
+				_healthManager.TakeDamage();
 		}
 	}
 }

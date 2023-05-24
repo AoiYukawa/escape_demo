@@ -7,19 +7,19 @@ namespace Unity.Assets.Scripts.Player
 {
 	public class PlayerController : MonoBehaviour
 	{
-		[SerializeField] private float speed = 1.0f;
-		private Rigidbody rb;
+		[SerializeField] private float _speed = 1.0f;
+		private Rigidbody _rb;
 
 		private void Start()
 		{
-			rb = GetComponent<Rigidbody>();
+			_rb = GetComponent<Rigidbody>();
 		}
 
 		private void FixedUpdate()
 		{
 			Vector3 dir = new Vector3(Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical"));
 
-			rb.velocity = dir * speed * Time.deltaTime;
+			_rb.velocity = dir * _speed * Time.deltaTime;
 			//transform.position += dir * speed * Time.deltaTime;
 		}
 	}
