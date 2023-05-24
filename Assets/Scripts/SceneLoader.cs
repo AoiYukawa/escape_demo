@@ -1,34 +1,42 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Assets.Scripts.Player;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SceneLoader : MonoBehaviour
+namespace Unity.Assets.Scripts
 {
-    public Animator Transition;
-    public string SceneName;
+	public class SceneLoader : MonoBehaviour
+	{
+		public Animator Transition;
+		public string SceneName;
 
-    public float TransitionTime = 1.0f;
+		public float TransitionTime = 1.0f;
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            LoadNextScene(SceneName);
-        }
-    }
+		public PlayerHealthManager _playerHealthMgr = null;
+		private bool _isLoaded = false;
 
-    public void LoadNextScene(string Scene)
-    {
-        StartCoroutine(LoadLevel(Scene));
-    }
+		void Update()
+		{
+			if (_playerHealthMgr.IsDead && !_isLoaded)
+			{
+				LoadNextScene(SceneName);
+				_isLoaded = true;
+			}
+		}
 
-    IEnumerator LoadLevel(string Scene) 
-    {
-        Transition.SetTrigger("Start");
+		public void LoadNextScene(string Scene)
+		{
+			StartCoroutine(LoadLevel(Scene));
+		}
 
-        yield return new WaitForSeconds(TransitionTime);
+		IEnumerator LoadLevel(string Scene)
+		{
+			Transition.SetTrigger("Start");
 
-        SceneManager.LoadScene(Scene);
-    }
+			yield return new WaitForSeconds(TransitionTime);
+
+			SceneManager.LoadScene(Scene);
+		}
+	}
 }

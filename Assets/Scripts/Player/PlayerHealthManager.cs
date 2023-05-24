@@ -6,16 +6,16 @@ namespace Unity.Assets.Scripts.Player
 {
 	public class PlayerHealthManager : MonoBehaviour
 	{
-		private int _maxHealth		= 5;
+		public int MaxHealth		= 0;
 		private int _currentHealth	= 0;
-		private bool _isDead			= false;
+		private bool _isDead		= false;
 
 		private float _maxProtectTime	 = 2.0f;
 		private float _currentProtectTime = 0.0f;
 
 		void Start()
 		{
-			_currentHealth = _maxHealth;
+			_currentHealth = MaxHealth;
 		}
 
 		void Update()
@@ -37,17 +37,11 @@ namespace Unity.Assets.Scripts.Player
 			if (_currentProtectTime > 0)
 				return;
 
-			_currentHealth--;
-
 			_currentProtectTime = _maxProtectTime;
 
-			if (_currentHealth < 0)
-			{
-				_currentHealth = 0;
-				return;
-			}
+			_currentHealth--;
 
-			if (_currentHealth == 0)
+			if (_currentHealth <= 0)
 			{
 				_isDead = true;
 				Destroy(gameObject);
@@ -56,6 +50,10 @@ namespace Unity.Assets.Scripts.Player
 			Debug.Log(_currentHealth);
 		}
 
-		public bool IsDead() { return  _isDead; }
+		public bool IsDead
+		{
+			get => _isDead;
+			//set => _isDead = value;
+		}
 	}
 }
