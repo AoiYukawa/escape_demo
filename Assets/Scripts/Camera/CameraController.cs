@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
 
-namespace Unity.Assets.Scripts
+namespace Unity.Assets.Scripts.Camera
 {
 	public class CameraController : MonoBehaviour
 	{

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Assets.Scripts.Scene;
 
 namespace Unity.Assets.Scripts.Player
 {
@@ -35,11 +36,6 @@ namespace Unity.Assets.Scripts.Player
 
 				//Debug.Log(_currentProtectTime);
 			}
-
-			if (_sceneLoader.IsLoaded)
-			{
-				Destroy(gameObject);
-			}
 		}
 
 		public void TakeDamage()
@@ -57,6 +53,7 @@ namespace Unity.Assets.Scripts.Player
 				_currentHealth = 0;
 
 				_sceneLoader.LoadNextScene("LoseScene");
+				Destroy(gameObject);
 			}
 
 			Debug.Log(_currentHealth);
