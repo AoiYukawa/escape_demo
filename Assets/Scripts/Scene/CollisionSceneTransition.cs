@@ -6,7 +6,7 @@ using static UnityEditor.Experimental.GraphView.GraphView;
 
 namespace Unity.Assets.Scripts.Scene
 {
-	public class SceneTransition : MonoBehaviour
+	public class CollisionSceneTransition : MonoBehaviour
 	{
 		public string NextSceneName;
 		public GameObject TargetObject;
