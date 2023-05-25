@@ -13,8 +13,13 @@ namespace Unity.Assets.Scripts.Player
 		private float _maxProtectTime	 = 2.0f;
 		private float _currentProtectTime = 0.0f;
 
+		private SceneLoader _sceneLoader;
+
 		void Start()
 		{
+			GameObject _sceneObj = GameObject.Find("SceneLoader");
+			_sceneLoader = _sceneObj.GetComponent<SceneLoader>();
+
 			_currentHealth = MaxHealth;
 		}
 
@@ -28,7 +33,12 @@ namespace Unity.Assets.Scripts.Player
 				if (_currentProtectTime <= 0)
 					_currentProtectTime = 0;
 
-				Debug.Log(_currentProtectTime);
+				//Debug.Log(_currentProtectTime);
+			}
+
+			if (_sceneLoader.IsLoaded)
+			{
+				Destroy(gameObject);
 			}
 		}
 
@@ -44,7 +54,9 @@ namespace Unity.Assets.Scripts.Player
 			if (_currentHealth <= 0)
 			{
 				_isDead = true;
-				Destroy(gameObject);
+				_currentHealth = 0;
+
+				_sceneLoader.LoadNextScene("LoseScene");
 			}
 
 			Debug.Log(_currentHealth);

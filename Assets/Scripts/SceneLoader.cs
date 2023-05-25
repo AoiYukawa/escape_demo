@@ -10,19 +10,20 @@ namespace Unity.Assets.Scripts
 	{
 		public Animator Transition;
 		public string SceneName;
-
 		public float TransitionTime = 1.0f;
 
-		public PlayerHealthManager _playerHealthMgr = null;
 		private bool _isLoaded = false;
+
+		private void Start()
+		{
+		}
 
 		void Update()
 		{
-			if (_playerHealthMgr.IsDead && !_isLoaded)
-			{
-				LoadNextScene(SceneName);
-				_isLoaded = true;
-			}
+			//if (!_isLoaded)
+			//{
+			//	LoadNextScene(SceneName);
+			//}
 		}
 
 		public void LoadNextScene(string Scene)
@@ -37,6 +38,12 @@ namespace Unity.Assets.Scripts
 			yield return new WaitForSeconds(TransitionTime);
 
 			SceneManager.LoadScene(Scene);
+			_isLoaded = true;
+		}
+
+		public bool IsLoaded
+		{
+			get => _isLoaded;
 		}
 	}
 }
