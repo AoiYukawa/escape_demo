@@ -12,7 +12,6 @@ namespace Unity.Assets.Scripts.Camera
 
 		private float distance = 5.0f;
 		private float height = 10.0f;
-		private float smoothSpeed = 10.0f;
 
 		private Vector3 offset;
 
@@ -39,7 +38,7 @@ namespace Unity.Assets.Scripts.Camera
 
 			Vector3 targetPosition = target.position + offset;
 
-			transform.position = Vector3.Lerp(transform.position, targetPosition, smoothSpeed * Time.deltaTime);
+			transform.position = targetPosition;
 
 			transform.LookAt(target);
 		}
