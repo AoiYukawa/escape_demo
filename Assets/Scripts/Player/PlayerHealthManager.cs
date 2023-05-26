@@ -7,9 +7,9 @@ namespace Unity.Assets.Scripts.Player
 {
 	public class PlayerHealthManager : MonoBehaviour
 	{
-		public int MaxHealth		= 0;
-		private int _currentHealth	= 0;
-		private bool _isDead		= false;
+		[SerializeField] private int _maxHealth = 0;
+		private int _currentHealth				= 0;
+		private bool _isDead					= false;
 
 		private float _maxProtectTime	 = 2.0f;
 		private float _currentProtectTime = 0.0f;
@@ -21,7 +21,7 @@ namespace Unity.Assets.Scripts.Player
 			GameObject _sceneObj = GameObject.Find("SceneLoader");
 			_sceneLoader = _sceneObj.GetComponent<SceneLoader>();
 
-			_currentHealth = MaxHealth;
+			_currentHealth = _maxHealth;
 		}
 
 		void Update()
@@ -59,6 +59,16 @@ namespace Unity.Assets.Scripts.Player
 			Debug.Log(_currentHealth);
 		}
 
+		public int MaxHealth
+		{
+			get => _maxHealth;
+			set => _maxHealth = value;
+		}
+		public int CurrentHealth
+		{
+			get => _currentHealth;
+			set => _currentHealth = value;
+		}
 		public bool IsDead
 		{
 			get => _isDead;
