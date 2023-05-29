@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Assets.Scripts.Scene;
+using Unity.Assets.Scripts.Camera;
 
 namespace Unity.Assets.Scripts.Player
 {
@@ -16,10 +17,15 @@ namespace Unity.Assets.Scripts.Player
 
 		private SceneLoader _sceneLoader;
 
+		private CameraShake _cameraShake;
+
 		void Start()
 		{
-			GameObject _sceneObj = GameObject.Find("SceneLoader");
-			_sceneLoader = _sceneObj.GetComponent<SceneLoader>();
+			GameObject sceneObj = GameObject.Find("SceneLoader");
+			_sceneLoader = sceneObj.GetComponent<SceneLoader>();
+
+			GameObject cameraObj = GameObject.Find("Main Camera");
+			_cameraShake = cameraObj.GetComponent<CameraShake>();
 
 			_currentHealth = _maxHealth;
 		}
@@ -46,6 +52,8 @@ namespace Unity.Assets.Scripts.Player
 			_currentProtectTime = _maxProtectTime;
 
 			_currentHealth--;
+
+			StartCoroutine(_cameraShake.Shake());
 
 			if (_currentHealth <= 0)
 			{
