@@ -4,20 +4,22 @@ using UnityEngine;
 using Unity.Assets.Scripts.Scene;
 using Unity.Assets.Scripts.Camera;
 
-namespace Unity.Assets.Scripts.Player
+namespace Adventure.Player
 {
-	public class PlayerHealthManager : MonoBehaviour
+	public class PlayerStatus : MonoBehaviour
 	{
-		[SerializeField] private int _maxHealth = 0;
-		private int _currentHealth				= 0;
-		private bool _isDead					= false;
+		[SerializeField] int _maxHealth = 1;
+		[SerializeField] float _maxProtectTime = 2.0f;
 
-		private float _maxProtectTime	 = 2.0f;
-		private float _currentProtectTime = 0.0f;
+		int _currentHealth = 0;
+		float _currentProtectTime = 0.0f;
+		bool _isDead = false;
 
-		private SceneLoader _sceneLoader;
+		//PlayerAttribute _playerAttribute;
 
-		private CameraShake _cameraShake;
+		SceneLoader _sceneLoader;
+
+		CameraShake _cameraShake;
 
 		void Start()
 		{
@@ -32,6 +34,8 @@ namespace Unity.Assets.Scripts.Player
 
 		void Update()
 		{
+			ProccesSequence();
+
 			if (_currentProtectTime > 0)
 			{
 				float time = Time.deltaTime;
@@ -55,6 +59,11 @@ namespace Unity.Assets.Scripts.Player
 
 			StartCoroutine(_cameraShake.Shake());
 
+			Debug.Log(_currentHealth);
+		}
+
+		void ProccesSequence()
+		{
 			if (_currentHealth <= 0)
 			{
 				_isDead = true;
@@ -63,8 +72,6 @@ namespace Unity.Assets.Scripts.Player
 				_sceneLoader.LoadNextScene("LoseScene");
 				Destroy(gameObject);
 			}
-
-			Debug.Log(_currentHealth);
 		}
 
 		public int MaxHealth
